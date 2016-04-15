@@ -48,79 +48,54 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Add Contact</h4>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form class="save-contact">
+                    <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" placeholder="Name">
+                            <input type="text" class="form-control" id="name" placeholder="Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" id="phone" placeholder="Phone Number">
+                            <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="address" placeholder="Address">
+                            <input type="text" class="form-control" id="address" placeholder="Address" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <input type="email" class="form-control" id="email" placeholder="Email" required>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="image" placeholder="Image URL">
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Discard Changes</button>
-                    <button type="button" class="btn btn-success" id="save-contact">Save Contact</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Discard Changes</button>
+                        <button type="submit" class="btn btn-success">Save Contact</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="container" id="contacts">
-        <div class="media">
+    <div class="container contacts">
+        <div class="media template animated fadeInRight">
             <div class="media-left">
-                <img class="media-object" src="http://placehold.it/75x75">
+                <img class="media-object" src="">
             </div>
             <div class="media-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <h4 class="media-heading">Brett Hartman <span class="glyphicon glyphicon-star-empty"></span></h4>
+                        <h4 class="media-heading"><span class="name"></span> <span class="glyphicon glyphicon-star-empty"></span></h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
-                        <p><span class="bold">Address:</span> 501 Forest Avenue, Apt. 1206, Palo Alto, CA 94301</p>
+                        <p><span class="bold">Address:</span> <span class="address"></span></p>
                     </div>
                     <div class="col-md-4 col-xs-12">
-                        <p><span class="bold">Phone Number:</span> (201) 660-0844</p>
-                        <p><span class="bold">E-mail Address:</span> brett.hartman@mac.com</p>
+                        <p><span class="bold">Phone Number:</span> <span class="phone"></span></p>
+                        <p><span class="bold">E-mail Address:</span> <span class="email"></span></p>
                     </div>
                     <div class="col-md-2 col-xs-12">
-                        <button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger delete">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="media">
-            <div class="media-left">
-                <img class="media-object" src="http://placehold.it/75x75">
-            </div>
-            <div class="media-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="media-heading">Jeff Gho <span class="glyphicon glyphicon-star-empty"></span></h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        <p><span class="bold">Address:</span> 2201 Laguna Street, San Francisco, CA 94115</p>
-                    </div>
-                    <div class="col-md-4 col-xs-12">
-                        <p><span class="bold">Phone Number:</span> (415) 602-8732</p>
-                        <p><span class="bold">E-mail Address:</span> jeffrey.gho@gmail.com</p>
-                    </div>
-                    <div class="col-md-2 col-xs-12">
-                        <button class="btn btn-primary">Edit</button>
+                        <button class="btn btn-primary edit">Edit</button>
                         <button class="btn btn-danger delete">Delete</button>
                     </div>
                 </div>

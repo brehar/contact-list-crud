@@ -3,10 +3,9 @@
 $(document).ready(init);
 
 function init() {
-    $('.glyphicon').on('click', toggleFavorite);
-    $('#save-contact').on('click', addContact);
     $('#filter').on('keyup', filter);
-    $('.delete').on('click', deleteContact);
+    $('.save-contact').submit(addContact);
+    $('.contacts').on('click', 'span.glyphicon', toggleFavorite);
 }
 
 function filter() {
@@ -17,6 +16,7 @@ function filter() {
             $(this).fadeOut();
         } else {
             $(this).show();
+            $('.template').hide();
         }
     });
 }
@@ -29,56 +29,33 @@ function toggleFavorite() {
     }
 }
 
-function addContact() {
-    var name = $('#name').val();
-    var phone = $('#phone').val();
-    var address = $('#address').val();
-    var email = $('#email').val();
-    var image = $('#image').val();
+function addContact(event) {
+    event.preventDefault();
 
-    var templateStr = `<div class="media animated fadeInRight">
-            <div class="media-left">
-                <img class="media-object" src="${image}">
-            </div>
-            <div class="media-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="media-heading">${name} <span class="glyphicon glyphicon-star-empty"></span></h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 col-xs-12">
-                        <p><span class="bold">Address:</span> ${address}</p>
-                    </div>
-                    <div class="col-md-4 col-xs-12">
-                        <p><span class="bold">Phone Number:</span> ${phone}</p>
-                        <p><span class="bold">E-mail Address:</span> ${email}</p>
-                    </div>
-                    <div class="col-md-2 col-xs-12">
-                        <button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger delete">Delete</button>
-                    </div>
-                </div>
-            </div>
-        </div>`;
+    var contact = {
+        name: $('#name').val(),
+        address: $('#address').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        img: $('#image').val()
+    };
 
-    $('#contacts').append(templateStr);
+    var $contact = $('.template').clone();
+    $contact.removeClass('template');
 
-    $('.glyphicon').off('click');
-    $('.glyphicon').on('click', toggleFavorite);
+    $contact.find('img').attr('src', contact.img);
+    $contact.find('.name').text(contact.name);
+    $contact.find('.address').text(contact.address);
+    $contact.find('.phone').text(contact.phone);
+    $contact.find('.email').text(contact.email);
 
-    $('.delete').off('click');
-    $('.delete').on('click', deleteContact);
+    $('.contacts').append($contact);
 
     $('#name').val('');
-    $('#phone').val('');
     $('#address').val('');
     $('#email').val('');
+    $('#phone').val('');
     $('#image').val('');
 
     $('#myModal').modal('toggle');
-}
-
-function deleteContact() {
-    $(this).parent().parent().parent().parent().remove();
 }
