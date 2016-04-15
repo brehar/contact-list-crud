@@ -1,0 +1,14 @@
+body {
+    font-family: 'Noto Sans';
+    background-color: #F5F5F5;
+    color: #212121;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+img {
+    width: 75px;
+    height: 75px;
+}
