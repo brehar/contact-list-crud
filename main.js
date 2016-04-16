@@ -3,10 +3,27 @@
 $(document).ready(init);
 
 function init() {
+    renderList();
     $('#filter').on('keyup', filter);
     $('.save-contact').submit(addContact);
     $('.contacts').on('click', 'span.glyphicon', toggleFavorite);
+    $('.contacts').on('click', '.delete', deleteContact);
 }
+
+var ContactStorage = {
+    get: function() {
+        try {
+            var contacts = JSON.parse(localStorage.contacts);
+        } catch (err) {
+            var contacts = [];
+        }
+
+        return contacts;
+    },
+    write: function(contacts) {
+        localStorage.contacts = JSON.stringify(contacts);
+    }
+};
 
 function filter() {
     var filter = $(this).val();
@@ -40,22 +57,53 @@ function addContact(event) {
         img: $('#image').val()
     };
 
-    var $contact = $('.template').clone();
-    $contact.removeClass('template');
-
-    $contact.find('img').attr('src', contact.img);
-    $contact.find('.name').text(contact.name);
-    $contact.find('.address').text(contact.address);
-    $contact.find('.phone').text(contact.phone);
-    $contact.find('.email').text(contact.email);
-
-    $('.contacts').append($contact);
-
     $('#name').val('');
     $('#address').val('');
     $('#email').val('');
     $('#phone').val('');
     $('#image').val('');
 
+    var contacts = ContactStorage.get();
+    contacts.push(contact);
+    ContactStorage.write(contacts);
+
     $('#myModal').modal('toggle');
+
+    renderList();
+}
+
+function renderList() {
+    var contacts = ContactStorage.get();
+    var newList = [];
+
+    for (var x = 0; x < contacts.length; x++) {
+        var $contact = $('.template').clone();
+        $contact.removeClass('template');
+
+        $contact.find('img').attr('src', contacts[x].img);
+        $contact.find('.name').text(contacts[x].name);
+        $contact.find('.address').text(contacts[x].address);
+        $contact.find('.phone').text(contacts[x].phone);
+        $contact.find('.email').text(contacts[x].email);
+
+        newList.push($contact);
+    }
+
+    $('.contacts').empty().append(newList);
+}
+
+function deleteContact() {
+    debugger;
+    var index = $(this).index();
+
+    var contacts = ContactStorage.get();
+
+    if (contacts.length === 1) {
+        localStorage.clear();
+    } else {
+        contacts.splice(index, 1);
+        ContactStorage.write(contacts);
+    }
+
+    renderList();
 }
