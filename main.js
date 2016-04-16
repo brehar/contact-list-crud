@@ -2,12 +2,16 @@
 
 $(document).ready(init);
 
+var id = 0;
+var index;
+
 function init() {
     renderList();
     $('#filter').on('keyup', filter);
     $('.save-contact').submit(addContact);
-    $('.contacts').on('click', 'span.glyphicon', toggleFavorite);
     $('.contacts').on('click', '.delete', deleteContact);
+    $('.contacts').on('click', '.edit', loadContact);
+    $('.edit-contact').submit(saveChanges);
 }
 
 var ContactStorage = {
@@ -38,18 +42,11 @@ function filter() {
     });
 }
 
-function toggleFavorite() {
-    if ($(this).hasClass('glyphicon-star-empty')) {
-        $(this).removeClass('glyphicon-star-empty').addClass('glyphicon-star');
-    } else {
-        $(this).removeClass('glyphicon-star').addClass('glyphicon-star-empty');
-    }
-}
-
 function addContact(event) {
     event.preventDefault();
 
     var contact = {
+        id: id,
         name: $('#name').val(),
         address: $('#address').val(),
         email: $('#email').val(),
@@ -69,6 +66,8 @@ function addContact(event) {
 
     $('#myModal').modal('toggle');
 
+    id++;
+
     renderList();
 }
 
@@ -80,6 +79,8 @@ function renderList() {
         var $contact = $('.template').clone();
         $contact.removeClass('template');
 
+        $contact.find('button.edit').attr('data-id', contacts[x].id);
+        $contact.find('button.delete').attr('data-id', contacts[x].id);
         $contact.find('img').attr('src', contacts[x].img);
         $contact.find('.name').text(contacts[x].name);
         $contact.find('.address').text(contacts[x].address);
@@ -93,8 +94,7 @@ function renderList() {
 }
 
 function deleteContact() {
-    debugger;
-    var index = $(this).index();
+    index = $(this).attr('data-id');
 
     var contacts = ContactStorage.get();
 
@@ -104,6 +104,46 @@ function deleteContact() {
         contacts.splice(index, 1);
         ContactStorage.write(contacts);
     }
+
+    renderList();
+}
+
+function loadContact() {
+    index = $(this).attr('data-id');
+
+    var contacts = ContactStorage.get();
+    var contact = contacts[index];
+
+    $('#edit-image').val(contact.img);
+    $('#edit-name').val(contact.name);
+    $('#edit-address').val(contact.address);
+    $('#edit-phone').val(contact.phone);
+    $('#edit-email').val(contact.email);
+}
+
+function saveChanges(event) {
+    event.preventDefault();
+
+    var contact = {
+        id: index,
+        name: $('#edit-name').val(),
+        address: $('#edit-address').val(),
+        email: $('#edit-email').val(),
+        phone: $('#edit-phone').val(),
+        img: $('#edit-image').val()
+    };
+
+    $('#edit-name').val('');
+    $('#edit-address').val('');
+    $('#edit-email').val('');
+    $('#edit-phone').val('');
+    $('#edit-image').val('');
+
+    var contacts = ContactStorage.get();
+    contacts[index] = contact;
+    ContactStorage.write(contacts);
+
+    $('#editModal').modal('toggle');
 
     renderList();
 }

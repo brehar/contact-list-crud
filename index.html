@@ -67,6 +67,40 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Add Contact</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editModalLabel">Edit Contact</h4>
+                </div>
+                <form class="edit-contact">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="edit-name" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" class="form-control" id="edit-phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="edit-address" placeholder="Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="edit-email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="edit-image" placeholder="Image URL">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Discard Changes</button>
                         <button type="submit" class="btn btn-success">Save Contact</button>
                     </div>
@@ -86,7 +120,7 @@
         <div class="media-body">
             <div class="row">
                 <div class="col-md-12">
-                    <h4 class="media-heading"><span class="name"></span> <span class="glyphicon glyphicon-star-empty"></span></h4>
+                    <h4 class="media-heading"><span class="name"></span></h4>
                 </div>
             </div>
             <div class="row">
@@ -98,8 +132,8 @@
                     <p><span class="bold">E-mail Address:</span> <span class="email"></span></p>
                 </div>
                 <div class="col-md-2 col-xs-12">
-                    <button class="btn btn-primary edit">Edit</button>
-                    <button class="btn btn-danger delete">Delete</button>
+                    <button class="btn btn-primary edit" data-toggle="modal" data-target="#editModal" data-id="">Edit</button>
+                    <button class="btn btn-danger delete" data-id="">Delete</button>
                 </div>
             </div>
         </div>
