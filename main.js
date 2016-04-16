@@ -7,7 +7,6 @@ var index;
 
 function init() {
     renderList();
-    getCurrentId();
     $('#filter').on('keyup', filter);
     $('.save-contact').submit(addContact);
     $('.contacts').on('click', '.delete', deleteContact);
@@ -73,6 +72,8 @@ function addContact(event) {
 }
 
 function renderList() {
+    getCurrentId();
+
     var contacts = ContactStorage.get();
     var newList = [];
 
@@ -80,8 +81,8 @@ function renderList() {
         var $contact = $('.template').clone();
         $contact.removeClass('template');
 
-        $contact.find('button.edit').attr('data-id', contacts[x].id);
-        $contact.find('button.delete').attr('data-id', contacts[x].id);
+        $contact.find('button.edit').attr('data-id', x);
+        $contact.find('button.delete').attr('data-id', x);
         $contact.find('img').attr('src', contacts[x].img);
         $contact.find('.name').text(contacts[x].name);
         $contact.find('.address').text(contacts[x].address);
