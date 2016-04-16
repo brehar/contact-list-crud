@@ -2,11 +2,12 @@
 
 $(document).ready(init);
 
-var id = 0;
+var id;
 var index;
 
 function init() {
     renderList();
+    getCurrentId();
     $('#filter').on('keyup', filter);
     $('.save-contact').submit(addContact);
     $('.contacts').on('click', '.delete', deleteContact);
@@ -91,6 +92,16 @@ function renderList() {
     }
 
     $('.contacts').empty().append(newList);
+}
+
+function getCurrentId() {
+    var contacts = ContactStorage.get();
+
+    if (contacts.length === 0) {
+        id = 0;
+    } else {
+        id = contacts[contacts.length - 1]['id'] + 1;
+    }
 }
 
 function deleteContact() {
