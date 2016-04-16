@@ -100,7 +100,7 @@ function getCurrentId() {
     if (contacts.length === 0) {
         id = 0;
     } else {
-        id = contacts[contacts.length - 1]['id'] + 1;
+        id = parseInt(contacts[contacts.length - 1]['id']) + 1;
     }
 }
 
